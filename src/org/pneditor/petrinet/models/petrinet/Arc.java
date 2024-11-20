@@ -2,7 +2,9 @@ package org.pneditor.petrinet.models.petrinet;
 
 public class Arc {
 	 // The weight of the Arc
+	private static int IdCount=0;
     private int weight;
+    private int id;
     
     // The place associated with this Arc
     private Place place;
@@ -19,9 +21,18 @@ public class Arc {
     		throw new IllegalArgumentException("Weight cannot be negative");
     	}
     	else {
-    		this.weight=weight;
+    		this.weight=weight;	
     	}
+    	this.id=IdCount++;
     }
+	
+	public int getId() {
+		return this.id;
+	}
+
+	public void set(int id) {
+		this.id=id;
+	}
 	
     public int getWeight() {
 		return weight;
