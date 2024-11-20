@@ -1,4 +1,4 @@
-package org.pneditor.petrinet.models.petrinet1;
+package org.pneditor.petrinet.models.petrinet;
 
 public class ClearingArc extends InArc {
     // The constructor initializes a ClearingArc with a place and a weight of 1, the weight

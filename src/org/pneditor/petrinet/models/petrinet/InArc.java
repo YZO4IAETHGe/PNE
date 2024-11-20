@@ -1,4 +1,4 @@
-package org.pneditor.petrinet.models.petrinet1;
+package org.pneditor.petrinet.models.petrinet;
 
 public class InArc extends Arc {
 	// Constructor to initialize the InArc with a specified weight and place

@@ -1,4 +1,4 @@
-package org.pneditor.petrinet.models.petrinet1;
+package org.pneditor.petrinet.models.petrinet;
 
 import java.util.ArrayList;
 

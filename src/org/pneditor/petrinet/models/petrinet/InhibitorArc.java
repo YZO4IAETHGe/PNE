@@ -1,4 +1,4 @@
-package org.pneditor.petrinet.models.petrinet1;
+package org.pneditor.petrinet.models.petrinet;
 
 public class InhibitorArc extends InArc {
     // The constructor initializes an InhibitorArc with a place and a weight of 0 

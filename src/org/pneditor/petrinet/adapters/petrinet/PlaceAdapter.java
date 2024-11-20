@@ -1,18 +1,21 @@
 package org.pneditor.petrinet.adapters.petrinet;
 
 import org.pneditor.petrinet.AbstractPlace;
-import org.pneditor.petrinet.models.petrinet1.Place;
+import org.pneditor.petrinet.models.petrinet.Place;
 
 public class PlaceAdapter extends AbstractPlace {
-
-	public PlaceAdapter(String label) {
+	
+	Place adaptee;
+	
+	public PlaceAdapter(String label,Place place) {
 		super(label);
+		this.adaptee=place;
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void addToken() {
-		Place.class.add
+		
 		
 		
 	}

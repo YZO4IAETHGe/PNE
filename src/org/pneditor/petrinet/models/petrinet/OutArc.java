@@ -1,4 +1,4 @@
-package org.pneditor.petrinet.models.petrinet1;
+package org.pneditor.petrinet.models.petrinet;
 
 public class OutArc extends Arc   {
     // Constructor to initialize the OutArc with a specified weight and place
