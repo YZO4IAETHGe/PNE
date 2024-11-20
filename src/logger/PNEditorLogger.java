@@ -9,7 +9,7 @@ import java.util.logging.SimpleFormatter;
 public class PNEditorLogger {
 
 	/**
-	 *  Instantiate a logger to be used by the software
+	 *  Instantiate a logger to be used by the software.
 	 */
 	private final static Logger LOGGER = Logger.getLogger(PNEditorLogger.class.getName());
 
