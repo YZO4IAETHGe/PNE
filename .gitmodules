@@ -1,0 +1,3 @@
+[submodule "src/org/pneditor/petrinet/models/petrinet"]
+	path = src/org/pneditor/petrinet/models/petrinet
+	url = https://github.com/FriteSansSel/PetriNet
