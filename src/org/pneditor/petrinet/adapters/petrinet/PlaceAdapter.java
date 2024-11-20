@@ -1,7 +1,7 @@
 package org.pneditor.petrinet.adapters.petrinet;
 
 import org.pneditor.petrinet.AbstractPlace;
-import org.pneditor.petrinet.models.petrinet.Place;
+import org.pneditor.petrinet.models.petrinet1.Place;
 
 public class PlaceAdapter extends AbstractPlace {
 
