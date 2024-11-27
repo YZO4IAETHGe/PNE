@@ -85,14 +85,15 @@ public class ArcAdapter extends AbstractArc {
 
 	@Override
 	public void setMultiplicity(int multiplicity) throws ResetArcMultiplicityException {
-		if (adaptee instanceof InhibitorArc) {
+		if (this.isRegular()) {
+			if (multiplicity < 0) {
+				throw new IllegalArgumentException("Multiplicity cannot be negative.");
+			}
+			adaptee.setWeight(multiplicity);
+		}
+		else
 			throw new ResetArcMultiplicityException();
-		}
-		if (multiplicity < 0) {
-			throw new IllegalArgumentException("Multiplicity cannot be negative.");
-		}
-		adaptee.set
-
 	}
-
 }
+
+
