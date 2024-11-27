@@ -7,6 +7,8 @@ import org.pneditor.petrinet.AbstractTransition;
 import org.pneditor.petrinet.PetriNetInterface;
 import org.pneditor.petrinet.ResetArcMultiplicityException;
 import org.pneditor.petrinet.UnimplementedCaseException;
+import org.pneditor.petrinet.models.petrinet.InArc;
+import org.pneditor.petrinet.models.petrinet.OutArc;
 import org.pneditor.petrinet.models.petrinet.PetriNet;
 import org.pneditor.petrinet.models.petrinet.Place;
 import org.pneditor.petrinet.models.petrinet.Transition;
@@ -19,23 +21,33 @@ public class PetriNetInterfaceAdapter extends PetriNetInterface {
 	public AbstractPlace addPlace() {
 		Place place = adaptee.addPlace(0);
 		AbstractPlace abstractPlace = new PlaceAdapter(String.valueOf(place.getId()), place);
-		getPlaces().add(abstractPlace);
 		return abstractPlace;
 	}
 
 	@Override
 	public AbstractTransition addTransition() {
 		Transition t = adaptee.addTransition();
-		AbstractTransition abstractTransition = new TransitionAdapter(String.valueOf(t.getId()));
+		AbstractTransition abstractTransition = new TransitionAdapter(String.valueOf(t.getId()),t);
 		return abstractTransition;
 	}
 
 	@Override
 	public AbstractArc addRegularArc(AbstractNode source, AbstractNode destination) throws UnimplementedCaseException {
-		if (source instanceof AbstractPlace && destination instanceof AbstractTransition) {
-			AbstractArc arc = new ArcAdapter()
+		AbstractArc arc=null;
+		if (source.isPlace() && !destination.isPlace()) {
+			InArc inarc=adaptee.addArcIn(((TransitionAdapter)destination).adaptee, 0, ((PlaceAdapter)source).adaptee);
+			arc = new ArcAdapter(inarc,this.adaptee.getTransitions());
 		}
-		return null;
+		else {
+			if (!source.isPlace() && destination.isPlace()) {
+				OutArc outarc=adaptee.addArcOut(((TransitionAdapter)source).adaptee, 0, ((PlaceAdapter)destination).adaptee);
+				arc = new ArcAdapter(outarc,this.adaptee.getTransitions());
+			}
+			else {
+				throw new UnimplementedCaseException("Need a place and a transition");
+			}
+		}
+		return arc;
 	}
 
 	@Override

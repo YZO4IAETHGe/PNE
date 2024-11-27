@@ -61,20 +61,20 @@ public class PetriNet {
 		}
 	}
 	//Method to add an ArcIn between Transition t and Place p with a weight
-	public void addArcIn(Transition t, int weight, Place p) {
-		t.addArcIn(weight, p);
+	public InArc addArcIn(Transition t, int weight, Place p) {
+		return t.addArcIn(weight, p);
 	}
 	//Method to add an Inhibitor Arc between Transition t and Place p
-	public void addArcInhibitor(Transition t,Place p) {
-		t.addArcInhibitor(p);
+	public InhibitorArc addArcInhibitor(Transition t,Place p) {
+		return t.addArcInhibitor(p);
 	}
 	//Method to add a Clearing Arc between Transtion t and Place p
-	public void addArcClearing(Transition t, Place p) {
-		t.addArcClearing(p);
+	public ClearingArc addArcClearing(Transition t, Place p) {
+		return t.addArcClearing(p);
 	}
 	//Method to add an ArcOut between Transition t and Place p
-	public void addArcOut(Transition t, int weight, Place p) {
-		t.addArcOut(weight, p);
+	public OutArc addArcOut(Transition t, int weight, Place p) {
+		return t.addArcOut(weight, p);
 	}
 	//Method to remove the ArcIn between Transition t and Place p
 	public void removeArcIn(Transition t, Place p) {

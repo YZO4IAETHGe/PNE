@@ -38,7 +38,8 @@ public class Transition {
 	}
 	
 	// Method to add an inArc with a specified weight and a reference to a place
-	public void addArcIn(int weight, Place place) {
+	public InArc addArcIn(int weight, Place place) {
+		InArc inarc=null;
 		boolean canAdd=true;
 		for (int i=0;i<this.inArcs.size();i++) {
 			if (inArcs.get(i).getPlace().getId()==place.getId()) {
@@ -47,15 +48,18 @@ public class Transition {
 			}
 		}
 		if (canAdd) {
-			inArcs.add(new InArc(weight,place));
+			inarc=new InArc(weight,place);
+			inArcs.add(inarc);
 		}
 		else {
 			System.out.println("No duplicate arcs between the same transition and place");
 		}
+		return inarc;
 	}
 
 	// Method to add an inhibitor arc  to the inArcs
-	public void addArcInhibitor(Place place) {
+	public InhibitorArc addArcInhibitor(Place place) {
+		InhibitorArc inhibitor_arc=null;
 		boolean canAdd=true;
 		for (int i=0;i<this.inArcs.size();i++) {
 			if (inArcs.get(i).getPlace().getId()==place.getId()) {
@@ -64,17 +68,20 @@ public class Transition {
 			}
 		}
 		if (canAdd) {
-			inArcs.add(new InhibitorArc(place)); 
+			inhibitor_arc=new InhibitorArc(place);
+			inArcs.add(inhibitor_arc); 
 		}
 		else {
 			System.out.println("No duplicate arcs between the same transition and place");
 		}
+		return inhibitor_arc;
 	}
 
 
 
 	// Method to add a clearing arc to the inArcs
-	public void addArcClearing(Place place) {
+	public ClearingArc addArcClearing(Place place) {
+		ClearingArc clearing_arc=null;
 		boolean canAdd=true;
 		for (int i=0;i<this.inArcs.size();i++) {
 			if (inArcs.get(i).getPlace().getId()==place.getId()) {
@@ -83,17 +90,20 @@ public class Transition {
 			}
 		}
 		if (canAdd) {
-			inArcs.add(new ClearingArc(place)); 
+			clearing_arc=new ClearingArc(place);
+			inArcs.add(clearing_arc); 
 		}
 		else {
 			System.out.println("No duplicate arcs between the same transition and place");
 		}
+		return clearing_arc;
 	}
 
 
 
 	// Method to add an outArc arc with a specified weight and a reference to a place
-	public void addArcOut(int weight, Place place) {
+	public OutArc addArcOut(int weight, Place place) {
+		OutArc outarc=null;
 		boolean canAdd=true;
 		for (int i=0;i<this.outArcs.size();i++) {
 			if (outArcs.get(i).getPlace().getId()==place.getId()) {
@@ -102,11 +112,13 @@ public class Transition {
 			}
 		}
 		if (canAdd) {
-			outArcs.add(new OutArc(weight, place));
+			outarc=new OutArc(weight, place);
+			outArcs.add(outarc);
 		}
 		else {
 			System.out.println("No duplicate arcs between the same transition and place");
 		}
+		return outarc;
 	}
 	
 	public void removeArcIn(Place place) {
