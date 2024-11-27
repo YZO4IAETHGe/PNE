@@ -7,8 +7,9 @@ public class TransitionAdapter extends AbstractTransition {
 	
 	Transition adaptee;
 
-	public TransitionAdapter(String label) {
+	public TransitionAdapter(String label, Transition adaptee) {
 		super(label);
+		this.adaptee=adaptee;
 	}
 
 }
