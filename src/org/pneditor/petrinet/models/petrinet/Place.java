@@ -1,6 +1,7 @@
 package org.pneditor.petrinet.models.petrinet;
 
 public class Place {
+
 	private static int IdCount=0;
 
 	// The number of tokens currently in this place

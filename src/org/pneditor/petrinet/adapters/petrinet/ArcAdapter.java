@@ -40,37 +40,37 @@ public class ArcAdapter extends AbstractArc {
 
 	@Override
 	public boolean isReset() {
-		if (adaptee instanceof ClearingArc) {
-			return true;
-		}
-		return false;
+		return adaptee instanceof ClearingArc;
 	}
 
 	@Override
 	public boolean isRegular() {
-		if ((adaptee instanceof ClearingArc) || (adaptee instanceof InhibitorArc)) {
-			return false;
-		}
-		return true;
+		return !((adaptee instanceof ClearingArc) || (adaptee instanceof InhibitorArc));
 	}
 
 	@Override
 	public boolean isInhibitory() {
-		if (adaptee instanceof InhibitorArc) {
-			return true;
-		}
-		return false;
+		return adaptee instanceof InhibitorArc;
 	}
 
 	@Override
 	public int getMultiplicity() throws ResetArcMultiplicityException {
-		// TODO Auto-generated method stub
-		return 0;
+		if (adaptee instanceof InhibitorArc) {
+			throw new ResetArcMultiplicityException();
+		} else {
+			return adaptee.getWeight();
+		}
 	}
 
 	@Override
 	public void setMultiplicity(int multiplicity) throws ResetArcMultiplicityException {
-		// TODO Auto-generated method stub
+		if (adaptee instanceof InhibitorArc) {
+            throw new ResetArcMultiplicityException();
+        }
+        if (multiplicity < 0) {
+            throw new IllegalArgumentException("Multiplicity cannot be negative.");
+        }
+        adaptee.set
 		
 	}
 
