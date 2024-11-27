@@ -15,9 +15,9 @@ import org.pneditor.petrinet.models.petrinet.PetriNet;
 import org.pneditor.petrinet.models.petrinet.Place;
 import org.pneditor.petrinet.models.petrinet.Transition;
 
-public class PetriNetInterfaceAdapter extends PetriNetInterface {
+public class PetriNetAdapter extends PetriNetInterface {
 
-	PetriNet adaptee;
+	PetriNet adaptee=new PetriNet();
 
 
 	public AbstractPlace addPlace() {
