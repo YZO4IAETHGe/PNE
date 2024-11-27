@@ -38,6 +38,10 @@ public class Arc {
 		return weight;
 	}
 
+    public void setWeight(int weight) {
+    	this.weight=weight;
+    }
+    
 	public Place getPlace() {
 		return place;
 	}
