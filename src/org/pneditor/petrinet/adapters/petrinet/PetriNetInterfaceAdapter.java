@@ -7,17 +7,19 @@ import org.pneditor.petrinet.AbstractTransition;
 import org.pneditor.petrinet.PetriNetInterface;
 import org.pneditor.petrinet.ResetArcMultiplicityException;
 import org.pneditor.petrinet.UnimplementedCaseException;
+import org.pneditor.petrinet.models.petrinet.ClearingArc;
 import org.pneditor.petrinet.models.petrinet.InArc;
+import org.pneditor.petrinet.models.petrinet.InhibitorArc;
 import org.pneditor.petrinet.models.petrinet.OutArc;
 import org.pneditor.petrinet.models.petrinet.PetriNet;
 import org.pneditor.petrinet.models.petrinet.Place;
 import org.pneditor.petrinet.models.petrinet.Transition;
 
 public class PetriNetInterfaceAdapter extends PetriNetInterface {
-	
+
 	PetriNet adaptee;
-	
-	
+
+
 	public AbstractPlace addPlace() {
 		Place place = adaptee.addPlace(0);
 		AbstractPlace abstractPlace = new PlaceAdapter(String.valueOf(place.getId()), place);
@@ -51,47 +53,57 @@ public class PetriNetInterfaceAdapter extends PetriNetInterface {
 	}
 
 	@Override
-	public AbstractArc addInhibitoryArc(AbstractPlace place, AbstractTransition transition)
-			throws UnimplementedCaseException {
-		// TODO Auto-generated method stub
-		return null;
+	public AbstractArc addInhibitoryArc(AbstractPlace place, AbstractTransition transition) throws UnimplementedCaseException {
+		InhibitorArc inhibitor_arc=adaptee.addArcInhibitor(((TransitionAdapter)transition).adaptee, ((PlaceAdapter)place).adaptee);
+		AbstractArc arc=new ArcAdapter(inhibitor_arc,this.adaptee.getTransitions());
+		return arc;
 	}
 
 	@Override
-	public AbstractArc addResetArc(AbstractPlace place, AbstractTransition transition)
-			throws UnimplementedCaseException {
-		// TODO Auto-generated method stub
-		return null;
+	public AbstractArc addResetArc(AbstractPlace place, AbstractTransition transition) throws UnimplementedCaseException {
+		ClearingArc clearing_arc=adaptee.addArcClearing(((TransitionAdapter)transition).adaptee, ((PlaceAdapter)place).adaptee);
+		AbstractArc arc=new ArcAdapter(clearing_arc,this.adaptee.getTransitions());
+		return arc;
 	}
 
 	@Override
 	public void removePlace(AbstractPlace place) {
-		// TODO Auto-generated method stub
-		
+		adaptee.removePlace(((PlaceAdapter)place).adaptee);
 	}
 
 	@Override
 	public void removeTransition(AbstractTransition transition) {
-		// TODO Auto-generated method stub
-		
+		adaptee.removeTransition(((TransitionAdapter)transition).adaptee);
 	}
 
 	@Override
 	public void removeArc(AbstractArc arc) {
-		// TODO Auto-generated method stub
-		
+		AbstractNode source=arc.getSource();
+		AbstractNode destination=arc.getDestination();
+		if (source.isPlace() && !destination.isPlace()) {
+			adaptee.removeArcIn(((TransitionAdapter)destination).adaptee, ((PlaceAdapter)source).adaptee);
+		}
+		else {
+			adaptee.removeArcOut(((TransitionAdapter)source).adaptee, ((PlaceAdapter)destination).adaptee);
+		}
 	}
 
 	@Override
 	public boolean isEnabled(AbstractTransition transition) throws ResetArcMultiplicityException {
-		// TODO Auto-generated method stub
-		return false;
+		Transition t=((TransitionAdapter)transition).adaptee;
+		boolean canTrigger = true; 
+		for (InArc arc : t.getInArcs()) {
+			if (!arc.canStep()) { 
+				canTrigger = false;
+				break;
+			}
+		}
+		return canTrigger;
 	}
 
 	@Override
 	public void fire(AbstractTransition transition) throws ResetArcMultiplicityException {
-		// TODO Auto-generated method stub
-		
+		((TransitionAdapter)transition).adaptee.trigger();
 	}
 
 }
