@@ -99,7 +99,7 @@ public class ArcAdapter extends AbstractArc {
 
 	@Override
 	public void setMultiplicity(int multiplicity) throws ResetArcMultiplicityException {
-		if (this.isRegular()) {
+		if (!this.isReset()) {
 			if (multiplicity < 0) {
 				throw new IllegalArgumentException("Multiplicity cannot be negative.");
 			}
