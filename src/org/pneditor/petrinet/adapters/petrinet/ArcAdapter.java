@@ -1,25 +1,35 @@
 package org.pneditor.petrinet.adapters.petrinet;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import org.pneditor.petrinet.AbstractArc;
 import org.pneditor.petrinet.AbstractNode;
+import org.pneditor.petrinet.AbstractPlace;
+import org.pneditor.petrinet.AbstractTransition;
 import org.pneditor.petrinet.ResetArcMultiplicityException;
 import org.pneditor.petrinet.models.petrinet.Arc;
 import org.pneditor.petrinet.models.petrinet.ClearingArc;
 import org.pneditor.petrinet.models.petrinet.InArc;
 import org.pneditor.petrinet.models.petrinet.InhibitorArc;
 import org.pneditor.petrinet.models.petrinet.OutArc;
+import org.pneditor.petrinet.models.petrinet.Place;
 import org.pneditor.petrinet.models.petrinet.Transition;
 
 public class ArcAdapter extends AbstractArc {
 
 	Arc adaptee;
 	ArrayList<Transition> transitions;
+	ArrayList<Place> places;
+	Set<AbstractTransition> transitions_PNE;
+	Set<AbstractPlace> places_PNE;
 
-	public ArcAdapter(Arc arc,ArrayList<Transition> transitions) {
+	public ArcAdapter(Arc arc, ArrayList<Transition> transitions, ArrayList<Place> places, Set<AbstractTransition> transitions_PNE, Set<AbstractPlace> places_PNE) {
 		adaptee=arc;
 		this.transitions=transitions;
+		this.places = places;
+		this.transitions_PNE = transitions_PNE;
+		this.places_PNE = places_PNE;
 	}
 	@Override
 	public AbstractNode getSource() {
@@ -27,15 +37,23 @@ public class ArcAdapter extends AbstractArc {
 			for (Transition t : transitions) {
 				for (OutArc outarc: t.getOutArcs()) {
 					if (outarc.getId()==adaptee.getId()) {
-						AbstractNode source=new TransitionAdapter("transition",t);
-						return source;
+						for (AbstractTransition t_PNE : transitions_PNE) {
+							if (t.getId() == Integer.valueOf(t_PNE.getLabel())) {
+								return t_PNE;
+							}
+						}
 					}
 				}
 			}
 		}
 		else {
-			AbstractNode source=new PlaceAdapter("place",adaptee.getPlace());
-			return source;
+			for (Place p : places) {
+				for (AbstractPlace p_PNE : places_PNE) {
+					if (p.getId() == Integer.valueOf(p_PNE.getLabel())) {
+						return p_PNE;
+					}
+				}
+			}
 		}
 		return null;
 	}
@@ -46,15 +64,23 @@ public class ArcAdapter extends AbstractArc {
 			for (Transition t : transitions) {
 				for (InArc inarc: t.getInArcs()) {
 					if (inarc.getId()==adaptee.getId()) {
-						AbstractNode source=new TransitionAdapter("transition",t);
-						return source;
+						for (AbstractTransition t_PNE : transitions_PNE) {
+							if (t.getId() == Integer.valueOf(t_PNE.getLabel())) {
+								return t_PNE;
+							}
+						}
 					}
 				}
 			}
 		}
 		else {
-			AbstractNode source=new PlaceAdapter("place",adaptee.getPlace());
-			return source;
+			for (Place p : places) {
+				for (AbstractPlace p_PNE : places_PNE) {
+					if (p.getId() == Integer.valueOf(p_PNE.getLabel())) {
+						return p_PNE;
+					}
+				}
+			}
 		}
 		return null;
 	}
