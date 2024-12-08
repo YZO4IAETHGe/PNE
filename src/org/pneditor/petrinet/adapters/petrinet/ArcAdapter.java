@@ -1,6 +1,6 @@
 package org.pneditor.petrinet.adapters.petrinet;
 
-import java.util.ArrayList;
+
 import java.util.Set;
 
 import org.pneditor.petrinet.AbstractArc;
@@ -19,39 +19,31 @@ import org.pneditor.petrinet.models.petrinet.Transition;
 public class ArcAdapter extends AbstractArc {
 
 	Arc adaptee;
-	ArrayList<Transition> transitions;
-	ArrayList<Place> places;
 	Set<AbstractTransition> transitions_PNE;
 	Set<AbstractPlace> places_PNE;
 
-	public ArcAdapter(Arc arc, ArrayList<Transition> transitions, ArrayList<Place> places, Set<AbstractTransition> transitions_PNE, Set<AbstractPlace> places_PNE) {
+	public ArcAdapter(Arc arc,Set<AbstractTransition> transitions_PNE, Set<AbstractPlace> places_PNE) {
 		adaptee=arc;
-		this.transitions=transitions;
-		this.places = places;
 		this.transitions_PNE = transitions_PNE;
 		this.places_PNE = places_PNE;
 	}
 	@Override
 	public AbstractNode getSource() {
 		if (adaptee instanceof OutArc) {
-			for (Transition t : transitions) {
-				for (OutArc outarc: t.getOutArcs()) {
-					if (outarc.getId()==adaptee.getId()) {
-						for (AbstractTransition t_PNE : transitions_PNE) {
-							if (t.getId() == Integer.valueOf(t_PNE.getLabel())) {
-								return t_PNE;
-							}
-						}
-					}
+			Transition t=adaptee.getTransition();
+			for (AbstractTransition t_PNE : transitions_PNE) {
+				if (t.getId() == Integer.valueOf(t_PNE.getLabel())) {
+					return t_PNE;
 				}
 			}
+
 		}
 		else {
-			for (Place p : places) {
-				for (AbstractPlace p_PNE : places_PNE) {
-					if (p.getId() == Integer.valueOf(p_PNE.getLabel())) {
-						return p_PNE;
-					}
+			Place p=adaptee.getPlace();
+			for (AbstractPlace p_PNE : places_PNE) {
+				if (p.getId() == Integer.valueOf(p_PNE.getLabel())) {
+					return p_PNE;
+
 				}
 			}
 		}
@@ -61,25 +53,21 @@ public class ArcAdapter extends AbstractArc {
 	@Override
 	public AbstractNode getDestination() {
 		if (adaptee instanceof InArc) {
-			for (Transition t : transitions) {
-				for (InArc inarc: t.getInArcs()) {
-					if (inarc.getId()==adaptee.getId()) {
-						for (AbstractTransition t_PNE : transitions_PNE) {
-							if (t.getId() == Integer.valueOf(t_PNE.getLabel())) {
-								return t_PNE;
-							}
-						}
-					}
+			Transition t=adaptee.getTransition();
+			for (AbstractTransition t_PNE : transitions_PNE) {
+				if (t.getId() == Integer.valueOf(t_PNE.getLabel())) {
+					return t_PNE;
 				}
 			}
+
 		}
 		else {
-			for (Place p : places) {
-				for (AbstractPlace p_PNE : places_PNE) {
-					if (p.getId() == Integer.valueOf(p_PNE.getLabel())) {
-						return p_PNE;
-					}
+			Place p=adaptee.getPlace();
+			for (AbstractPlace p_PNE : places_PNE) {
+				if (p.getId() == Integer.valueOf(p_PNE.getLabel())) {
+					return p_PNE;
 				}
+
 			}
 		}
 		return null;

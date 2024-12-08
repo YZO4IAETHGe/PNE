@@ -48,7 +48,7 @@ public class Transition {
 			}
 		}
 		if (canAdd) {
-			inarc=new InArc(weight,place);
+			inarc=new InArc(weight,place,this);
 			inArcs.add(inarc);
 		}
 		else {
@@ -68,7 +68,7 @@ public class Transition {
 			}
 		}
 		if (canAdd) {
-			inhibitor_arc=new InhibitorArc(place);
+			inhibitor_arc=new InhibitorArc(place,this);
 			inArcs.add(inhibitor_arc); 
 		}
 		else {
@@ -90,7 +90,7 @@ public class Transition {
 			}
 		}
 		if (canAdd) {
-			clearing_arc=new ClearingArc(place);
+			clearing_arc=new ClearingArc(place,this);
 			inArcs.add(clearing_arc); 
 		}
 		else {
@@ -112,7 +112,7 @@ public class Transition {
 			}
 		}
 		if (canAdd) {
-			outarc=new OutArc(weight, place);
+			outarc=new OutArc(weight, place,this);
 			outArcs.add(outarc);
 		}
 		else {

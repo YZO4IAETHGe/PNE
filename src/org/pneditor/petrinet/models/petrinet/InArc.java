@@ -2,8 +2,8 @@ package org.pneditor.petrinet.models.petrinet;
 
 public class InArc extends Arc {
 	// Constructor to initialize the InArc with a specified weight and place
-	public InArc(int weight, Place place) {
-		super(weight,place);
+	public InArc(int weight, Place place,Transition transition) {
+		super(weight,place,transition);
 	}
 
 	// Method to check if the transition can step based on the current token count in the place

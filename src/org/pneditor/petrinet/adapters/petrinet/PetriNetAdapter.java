@@ -37,13 +37,13 @@ public class PetriNetAdapter extends PetriNetInterface {
 	public AbstractArc addRegularArc(AbstractNode source, AbstractNode destination) throws UnimplementedCaseException {
 		AbstractArc arc=null;
 		if (source.isPlace() && !destination.isPlace()) {
-			InArc inarc=adaptee.addArcIn(((TransitionAdapter)destination).adaptee, 0, ((PlaceAdapter)source).adaptee);
-			arc = new ArcAdapter(inarc,this.adaptee.getTransitions(), this.adaptee.getPlaces(), getTransitions(), getPlaces());
+			InArc inarc=adaptee.addArcIn(((TransitionAdapter)destination).adaptee, 1, ((PlaceAdapter)source).adaptee);
+			arc = new ArcAdapter(inarc, getTransitions(), getPlaces());
 		}
 		else {
 			if (!source.isPlace() && destination.isPlace()) {
-				OutArc outarc=adaptee.addArcOut(((TransitionAdapter)source).adaptee, 0, ((PlaceAdapter)destination).adaptee);
-				arc = new ArcAdapter(outarc,this.adaptee.getTransitions(), this.adaptee.getPlaces(), getTransitions(), getPlaces());
+				OutArc outarc=adaptee.addArcOut(((TransitionAdapter)source).adaptee, 1, ((PlaceAdapter)destination).adaptee);
+				arc = new ArcAdapter(outarc, getTransitions(), getPlaces());
 			}
 			else {
 				throw new UnimplementedCaseException("Need a place and a transition");
@@ -55,14 +55,14 @@ public class PetriNetAdapter extends PetriNetInterface {
 	@Override
 	public AbstractArc addInhibitoryArc(AbstractPlace place, AbstractTransition transition) throws UnimplementedCaseException {
 		InhibitorArc inhibitor_arc=adaptee.addArcInhibitor(((TransitionAdapter)transition).adaptee, ((PlaceAdapter)place).adaptee);
-		AbstractArc arc=new ArcAdapter(inhibitor_arc,this.adaptee.getTransitions(), this.adaptee.getPlaces(), getTransitions(), getPlaces());
+		AbstractArc arc=new ArcAdapter(inhibitor_arc, getTransitions(), getPlaces());
 		return arc;
 	}
 
 	@Override
 	public AbstractArc addResetArc(AbstractPlace place, AbstractTransition transition) throws UnimplementedCaseException {
 		ClearingArc clearing_arc=adaptee.addArcClearing(((TransitionAdapter)transition).adaptee, ((PlaceAdapter)place).adaptee);
-		AbstractArc arc=new ArcAdapter(clearing_arc,this.adaptee.getTransitions(), this.adaptee.getPlaces(), getTransitions(), getPlaces());
+		AbstractArc arc=new ArcAdapter(clearing_arc, getTransitions(), getPlaces());
 		return arc;
 	}
 
