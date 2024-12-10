@@ -35,34 +35,34 @@ public class PetriNetAdapter extends PetriNetInterface {
 
 	@Override
 	public AbstractArc addRegularArc(AbstractNode source, AbstractNode destination) throws UnimplementedCaseException {
-		AbstractArc arc=null;
 		if (source.isPlace() && !destination.isPlace()) {
 			InArc inarc=adaptee.addArcIn(((TransitionAdapter)destination).adaptee, 1, ((PlaceAdapter)source).adaptee);
-			arc = new ArcAdapter(inarc, getTransitions(), getPlaces());
+			ArcAdapter arc = new ArcAdapter(inarc, (TransitionAdapter)destination, (PlaceAdapter)source);
+			return arc;
 		}
 		else {
 			if (!source.isPlace() && destination.isPlace()) {
 				OutArc outarc=adaptee.addArcOut(((TransitionAdapter)source).adaptee, 1, ((PlaceAdapter)destination).adaptee);
-				arc = new ArcAdapter(outarc, getTransitions(), getPlaces());
+				ArcAdapter arc = new ArcAdapter(outarc,(TransitionAdapter)source,(PlaceAdapter)destination);
+				return arc;
 			}
 			else {
 				throw new UnimplementedCaseException("Need a place and a transition");
 			}
 		}
-		return arc;
 	}
 
 	@Override
 	public AbstractArc addInhibitoryArc(AbstractPlace place, AbstractTransition transition) throws UnimplementedCaseException {
 		InhibitorArc inhibitor_arc=adaptee.addArcInhibitor(((TransitionAdapter)transition).adaptee, ((PlaceAdapter)place).adaptee);
-		AbstractArc arc=new ArcAdapter(inhibitor_arc, getTransitions(), getPlaces());
+		AbstractArc arc=new ArcAdapter(inhibitor_arc,(TransitionAdapter)transition ,(PlaceAdapter)place);
 		return arc;
 	}
 
 	@Override
 	public AbstractArc addResetArc(AbstractPlace place, AbstractTransition transition) throws UnimplementedCaseException {
 		ClearingArc clearing_arc=adaptee.addArcClearing(((TransitionAdapter)transition).adaptee, ((PlaceAdapter)place).adaptee);
-		AbstractArc arc=new ArcAdapter(clearing_arc, getTransitions(), getPlaces());
+		AbstractArc arc=new ArcAdapter(clearing_arc, (TransitionAdapter)transition ,(PlaceAdapter)place);
 		return arc;
 	}
 

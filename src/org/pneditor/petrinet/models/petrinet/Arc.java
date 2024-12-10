@@ -8,10 +8,8 @@ public class Arc {
     
     // The place associated with this Arc
     private Place place;
-    private Transition transition;
 
-	public Arc(int weight, Place place, Transition transition) {
-    	this.transition=transition;
+	public Arc(int weight, Place place) {
     	if (place==null) {
     		throw new NullPointerException("Null place was given");
     	}
@@ -46,9 +44,6 @@ public class Arc {
     
 	public Place getPlace() {
 		return place;
-	}
-	public Transition getTransition() {
-		return transition;
 	}
 }	
 

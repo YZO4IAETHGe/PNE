@@ -41,14 +41,9 @@ public class Transition {
 	public InArc addArcIn(int weight, Place place) {
 		InArc inarc=null;
 		boolean canAdd=true;
-		for (int i=0;i<this.inArcs.size();i++) {
-			if (inArcs.get(i).getPlace().getId()==place.getId()) {
-				canAdd=false;
-				break;
-			}
-		}
+	
 		if (canAdd) {
-			inarc=new InArc(weight,place,this);
+			inarc=new InArc(weight,place);
 			inArcs.add(inarc);
 		}
 		else {
@@ -61,14 +56,9 @@ public class Transition {
 	public InhibitorArc addArcInhibitor(Place place) {
 		InhibitorArc inhibitor_arc=null;
 		boolean canAdd=true;
-		for (int i=0;i<this.inArcs.size();i++) {
-			if (inArcs.get(i).getPlace().getId()==place.getId()) {
-				canAdd=false;
-				break;
-			}
-		}
+	
 		if (canAdd) {
-			inhibitor_arc=new InhibitorArc(place,this);
+			inhibitor_arc=new InhibitorArc(place);
 			inArcs.add(inhibitor_arc); 
 		}
 		else {
@@ -83,14 +73,9 @@ public class Transition {
 	public ClearingArc addArcClearing(Place place) {
 		ClearingArc clearing_arc=null;
 		boolean canAdd=true;
-		for (int i=0;i<this.inArcs.size();i++) {
-			if (inArcs.get(i).getPlace().getId()==place.getId()) {
-				canAdd=false;
-				break;
-			}
-		}
+	
 		if (canAdd) {
-			clearing_arc=new ClearingArc(place,this);
+			clearing_arc=new ClearingArc(place);
 			inArcs.add(clearing_arc); 
 		}
 		else {
@@ -105,14 +90,9 @@ public class Transition {
 	public OutArc addArcOut(int weight, Place place) {
 		OutArc outarc=null;
 		boolean canAdd=true;
-		for (int i=0;i<this.outArcs.size();i++) {
-			if (outArcs.get(i).getPlace().getId()==place.getId()) {
-				canAdd=false;
-				break;
-			}
-		}
+
 		if (canAdd) {
-			outarc=new OutArc(weight, place,this);
+			outarc=new OutArc(weight, place);
 			outArcs.add(outarc);
 		}
 		else {

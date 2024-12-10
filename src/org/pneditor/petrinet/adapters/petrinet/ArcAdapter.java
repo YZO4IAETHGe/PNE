@@ -1,77 +1,49 @@
 package org.pneditor.petrinet.adapters.petrinet;
 
 
-import java.util.Set;
+
 
 import org.pneditor.petrinet.AbstractArc;
 import org.pneditor.petrinet.AbstractNode;
-import org.pneditor.petrinet.AbstractPlace;
-import org.pneditor.petrinet.AbstractTransition;
+
 import org.pneditor.petrinet.ResetArcMultiplicityException;
 import org.pneditor.petrinet.models.petrinet.Arc;
 import org.pneditor.petrinet.models.petrinet.ClearingArc;
-import org.pneditor.petrinet.models.petrinet.InArc;
+
 import org.pneditor.petrinet.models.petrinet.InhibitorArc;
 import org.pneditor.petrinet.models.petrinet.OutArc;
-import org.pneditor.petrinet.models.petrinet.Place;
-import org.pneditor.petrinet.models.petrinet.Transition;
 
 public class ArcAdapter extends AbstractArc {
 
 	Arc adaptee;
-	Set<AbstractTransition> transitions_PNE;
-	Set<AbstractPlace> places_PNE;
+	TransitionAdapter transition;
+	PlaceAdapter place;
 
-	public ArcAdapter(Arc arc,Set<AbstractTransition> transitions_PNE, Set<AbstractPlace> places_PNE) {
+	public ArcAdapter(Arc arc,TransitionAdapter transition, PlaceAdapter place) {
 		adaptee=arc;
-		this.transitions_PNE = transitions_PNE;
-		this.places_PNE = places_PNE;
+		this.transition = transition;
+		this.place = place;
 	}
 	@Override
 	public AbstractNode getSource() {
 		if (adaptee instanceof OutArc) {
-			Transition t=adaptee.getTransition();
-			for (AbstractTransition t_PNE : transitions_PNE) {
-				if (t.getId() == Integer.valueOf(t_PNE.getLabel())) {
-					return t_PNE;
-				}
-			}
-
+			return transition;
 		}
 		else {
-			Place p=adaptee.getPlace();
-			for (AbstractPlace p_PNE : places_PNE) {
-				if (p.getId() == Integer.valueOf(p_PNE.getLabel())) {
-					return p_PNE;
-
-				}
-			}
+			return place;
 		}
-		return null;
 	}
 
 	@Override
 	public AbstractNode getDestination() {
-		if (adaptee instanceof InArc) {
-			Transition t=adaptee.getTransition();
-			for (AbstractTransition t_PNE : transitions_PNE) {
-				if (t.getId() == Integer.valueOf(t_PNE.getLabel())) {
-					return t_PNE;
-				}
-			}
-
+		if (adaptee instanceof OutArc) {
+			return place;
 		}
 		else {
-			Place p=adaptee.getPlace();
-			for (AbstractPlace p_PNE : places_PNE) {
-				if (p.getId() == Integer.valueOf(p_PNE.getLabel())) {
-					return p_PNE;
-				}
-
-			}
+			return transition;
 		}
-		return null;
 	}
+
 
 	@Override
 	public boolean isReset() {
@@ -90,7 +62,7 @@ public class ArcAdapter extends AbstractArc {
 
 	@Override
 	public int getMultiplicity() throws ResetArcMultiplicityException {
-		if (adaptee instanceof InhibitorArc) {
+		if (this.isReset()) {
 			throw new ResetArcMultiplicityException();
 		} else {
 			return adaptee.getWeight();
@@ -99,14 +71,17 @@ public class ArcAdapter extends AbstractArc {
 
 	@Override
 	public void setMultiplicity(int multiplicity) throws ResetArcMultiplicityException {
-		if (!this.isReset()) {
-			if (multiplicity < 0) {
+		if (this.isReset()) {
+			throw new ResetArcMultiplicityException();
+		}
+		else {
+			if (multiplicity >= 0) {
+				adaptee.setWeight(multiplicity);
+			}
+			else {
 				throw new IllegalArgumentException("Multiplicity cannot be negative.");
 			}
-			adaptee.setWeight(multiplicity);
 		}
-		else
-			throw new ResetArcMultiplicityException();
 	}
 }
 
