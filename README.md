@@ -50,9 +50,3 @@ Adapter :
 Les classes adapters permet de rendre compatible le code de notre réseaux de Petri avec PNEditor pour permettre l'affichage et la modification depuis un interface graphique. L'adaptateur agit comme une interface intermédiaire qui traduit les données et les actions entre les deux systèmes, en s'assurant qu'ils fonctionnent ensemble malgré leurs différences structurelles et fonctionnelles.
 
 Pour lancer l'interface graphique, il suffit de lancer le fichier Main.java situé dans src/org.pneditor.editor.
-
-Notre implémentation n'est pas conforme à notre diagramme de classe initial. En effet, au départ nous hésitions sur l'utilité de rajouté une class mère Arc, mais nous avons finalement décidé de faire une classe mère Arc afin de vérifier que la place et le poids donnés au constructeur soient conforme (Place non nulle et poids posiif) dans le but de factoriser le code.
-
-Nous avons rajouté un attribut id pour les classes Place et Transition afin de pouvoir distinguer facilement ces objets notamment pour la suppression et la gestion des doublons d'arcs.
-
-Enfin nous avons rajouter des méthodes dans la classe PetriNet pour ajouter les Arcs, les Places et les Transitions et aussi pour les supprimer.
