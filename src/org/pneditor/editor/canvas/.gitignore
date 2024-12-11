@@ -1,0 +1,17 @@
+/ArcFeature.class
+/Canvas.class
+/ClickFeature.class
+/DraggingFeature.class
+/EdgeZigzagFeature.class
+/Feature.class
+/PanningFeature.class
+/PetriNetFeature.class
+/PlaceTransitionMakerFeature.class
+/PopupMenuFeature.class
+/ScrollingFeature.class
+/Selection.class
+/SelectionChangedListener.class
+/SelectionDrawingFeature.class
+/TokenFeature.class
+/VisualHandle.class
+/VisualSelection.class
