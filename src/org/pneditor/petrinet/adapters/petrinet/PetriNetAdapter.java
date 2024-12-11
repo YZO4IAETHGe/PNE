@@ -16,23 +16,23 @@ import org.pneditor.petrinet.models.petrinet.Place;
 import org.pneditor.petrinet.models.petrinet.Transition;
 
 public class PetriNetAdapter extends PetriNetInterface {
-
+	//Petrinet of our model
 	PetriNet adaptee=new PetriNet();
 
-
+	// Adds a new place to the Petri net and returns its abstract representation
 	public AbstractPlace addPlace() {
 		Place place = adaptee.addPlace(0);
 		AbstractPlace abstractPlace = new PlaceAdapter(String.valueOf(place.getId()), place);
 		return abstractPlace;
 	}
-
+	 // Adds a new transition to the Petri net and returns its abstract representation
 	@Override
 	public AbstractTransition addTransition() {
 		Transition t = adaptee.addTransition();
 		AbstractTransition abstractTransition = new TransitionAdapter(String.valueOf(t.getId()),t);
 		return abstractTransition;
 	}
-
+	 // Adds a regular arc between a source and a destination node
 	@Override
 	public AbstractArc addRegularArc(AbstractNode source, AbstractNode destination) throws UnimplementedCaseException {
 		if (source.isPlace() && !destination.isPlace()) {
@@ -51,31 +51,31 @@ public class PetriNetAdapter extends PetriNetInterface {
 			}
 		}
 	}
-
+	// Adds an inhibitory arc from a place to a transition
 	@Override
 	public AbstractArc addInhibitoryArc(AbstractPlace place, AbstractTransition transition) throws UnimplementedCaseException {
 		InhibitorArc inhibitor_arc=adaptee.addArcInhibitor(((TransitionAdapter)transition).adaptee, ((PlaceAdapter)place).adaptee);
 		AbstractArc arc=new ArcAdapter(inhibitor_arc,(TransitionAdapter)transition ,(PlaceAdapter)place);
 		return arc;
 	}
-
+	// Adds a reset arc from a place to a transition
 	@Override
 	public AbstractArc addResetArc(AbstractPlace place, AbstractTransition transition) throws UnimplementedCaseException {
 		ClearingArc clearing_arc=adaptee.addArcClearing(((TransitionAdapter)transition).adaptee, ((PlaceAdapter)place).adaptee);
 		AbstractArc arc=new ArcAdapter(clearing_arc, (TransitionAdapter)transition ,(PlaceAdapter)place);
 		return arc;
 	}
-
+	 // Removes a place from the PetriNet
 	@Override
 	public void removePlace(AbstractPlace place) {
 		adaptee.removePlace(((PlaceAdapter)place).adaptee);
 	}
-
+	// Removes a transition from the PetriNet
 	@Override
 	public void removeTransition(AbstractTransition transition) {
 		adaptee.removeTransition(((TransitionAdapter)transition).adaptee);
 	}
-
+	// Removes an arc from the PetriNet
 	@Override
 	public void removeArc(AbstractArc arc) {
 		AbstractNode source=arc.getSource();
@@ -87,7 +87,7 @@ public class PetriNetAdapter extends PetriNetInterface {
 			adaptee.removeArcOut(((TransitionAdapter)source).adaptee, ((PlaceAdapter)destination).adaptee);
 		}
 	}
-
+	// Checks if a transition is enabled (can fire)
 	@Override
 	public boolean isEnabled(AbstractTransition transition) throws ResetArcMultiplicityException {
 		Transition t=((TransitionAdapter)transition).adaptee;
@@ -100,7 +100,7 @@ public class PetriNetAdapter extends PetriNetInterface {
 		}
 		return canTrigger;
 	}
-
+	// Fires a transition in the Petri net
 	@Override
 	public void fire(AbstractTransition transition) throws ResetArcMultiplicityException {
 		((TransitionAdapter)transition).adaptee.trigger();
