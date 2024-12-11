@@ -35,7 +35,7 @@ Version eclipse : 2023-09
 Version JRE : JDK 21 JDK compliance level 20
 Version Java : Java SE 8+
 
-Structure du réseaux de Petri : 
+Structure du réseaux de Petri : (Se trouve dans org.pneditor.petrinet.models.petrinet)
 Main : Point d'entrée du programme, gérant l'initialisation et l'exécution de la simulation du réseau de Petri. 
 PetriNet : Classe contenant les places et transitions. elle contient des méthodes permettant d'ajouter et supprimer des places ou transition. 
 Place : représente un emplacement dans le réseau, où les jetons peuvent être stockés. 
@@ -46,7 +46,7 @@ OutArc : un arc sortant reliant une transition à une place.
 InhibitorArc : un arc d'inhibition qui peut etre activé seulement si aucun jeton est présent dans la place. 
 ClearingArc : un arc de remise à zéro, s'activant seulement si une il y a au moins un jeton dans la place et supprime les jetons d'une place une fois la transition déclenchée.
 
-Adapter :
+Adapter : (org.pneditor.petrinet.adapters.petrinet)
 Les classes adapters permet de rendre compatible le code de notre réseaux de Petri avec PNEditor pour permettre l'affichage et la modification depuis un interface graphique. L'adaptateur agit comme une interface intermédiaire qui traduit les données et les actions entre les deux systèmes, en s'assurant qu'ils fonctionnent ensemble malgré leurs différences structurelles et fonctionnelles.
 
 Pour lancer l'interface graphique, il suffit de lancer le fichier Main.java situé dans src/org.pneditor.editor.

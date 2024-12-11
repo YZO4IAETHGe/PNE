@@ -39,31 +39,15 @@ public class Transition {
 	
 	// Method to add an inArc with a specified weight and a reference to a place
 	public InArc addArcIn(int weight, Place place) {
-		InArc inarc=null;
-		boolean canAdd=true;
-	
-		if (canAdd) {
-			inarc=new InArc(weight,place);
-			inArcs.add(inarc);
-		}
-		else {
-			System.out.println("No duplicate arcs between the same transition and place");
-		}
+		InArc inarc = new InArc(weight,place);
+		inArcs.add(inarc);
 		return inarc;
 	}
 
 	// Method to add an inhibitor arc  to the inArcs
 	public InhibitorArc addArcInhibitor(Place place) {
-		InhibitorArc inhibitor_arc=null;
-		boolean canAdd=true;
-	
-		if (canAdd) {
-			inhibitor_arc=new InhibitorArc(place);
-			inArcs.add(inhibitor_arc); 
-		}
-		else {
-			System.out.println("No duplicate arcs between the same transition and place");
-		}
+		InhibitorArc inhibitor_arc = new InhibitorArc(place);
+		inArcs.add(inhibitor_arc); 
 		return inhibitor_arc;
 	}
 
@@ -71,16 +55,8 @@ public class Transition {
 
 	// Method to add a clearing arc to the inArcs
 	public ClearingArc addArcClearing(Place place) {
-		ClearingArc clearing_arc=null;
-		boolean canAdd=true;
-	
-		if (canAdd) {
-			clearing_arc=new ClearingArc(place);
-			inArcs.add(clearing_arc); 
-		}
-		else {
-			System.out.println("No duplicate arcs between the same transition and place");
-		}
+		ClearingArc clearing_arc = new ClearingArc(place);
+		inArcs.add(clearing_arc); 
 		return clearing_arc;
 	}
 
@@ -88,16 +64,8 @@ public class Transition {
 
 	// Method to add an outArc arc with a specified weight and a reference to a place
 	public OutArc addArcOut(int weight, Place place) {
-		OutArc outarc=null;
-		boolean canAdd=true;
-
-		if (canAdd) {
-			outarc=new OutArc(weight, place);
+			OutArc outarc = new OutArc(weight, place);
 			outArcs.add(outarc);
-		}
-		else {
-			System.out.println("No duplicate arcs between the same transition and place");
-		}
 		return outarc;
 	}
 	
