@@ -8,7 +8,7 @@ import org.pneditor.petrinet.models.petrinet.Place;
 public class PlaceAdapter extends AbstractPlace {
 
 	// Instance of the specific Place implementation being adapted.
-	Place adaptee;
+	protected Place adaptee;
 
 	// Constructor to initialize the adapter with a label and a specific Place instance.
 	public PlaceAdapter(String label,Place place) {

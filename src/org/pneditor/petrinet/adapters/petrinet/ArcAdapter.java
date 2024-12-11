@@ -15,7 +15,7 @@ import org.pneditor.petrinet.models.petrinet.OutArc;
 public class ArcAdapter extends AbstractArc {
 
 	// Instance of the specific Arc implementation being adapted.
-	Arc adaptee;
+	protected Arc adaptee;
 	
 	// Associated transition and place adapters representing 
     // the source and destination nodes of the arc.

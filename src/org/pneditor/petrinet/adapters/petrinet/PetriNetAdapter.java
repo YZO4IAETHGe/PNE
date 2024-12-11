@@ -17,7 +17,7 @@ import org.pneditor.petrinet.models.petrinet.Transition;
 
 public class PetriNetAdapter extends PetriNetInterface {
 	//Petrinet of our model
-	PetriNet adaptee=new PetriNet();
+	protected PetriNet adaptee=new PetriNet();
 
 	// Adds a new place to the Petri net and returns its abstract representation
 	public AbstractPlace addPlace() {
